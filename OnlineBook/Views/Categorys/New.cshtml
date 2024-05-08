@@ -1,0 +1,77 @@
+﻿@model Pims.Core.ViewModel.CategotyViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    textarea#Description {
+        display: block;
+        width: 390px;
+        height: 100px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Category From</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.Name, "Name*", htmlAttributes: new { @class = "Label-control" })
+                            @Html.EditorFor(model => Model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => Model.Name, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.Description, "Description", htmlAttributes: new { @class = "Label-control" })
+                            @Html.TextAreaFor(model => Model.Description, new { htmlAttributes = new { @class = "form-control", id = "Description" } })
+                            @Html.ValidationMessageFor(model => Model.Description, "", new { @Class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            @Html.HiddenFor(c => c.Id)
+                            <div class="form-group col-md-2 col-sm-2">
+                                <input type="button" id="btnSubmit" value="Submit" class="btn btn-primary btn-block" />
+                            </div>
+                            <div class="form-group col-md-2 col-sm-2">
+                                <input type="button" id="btnRefresh" value="Cancle" class="btn btn-primary btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header">Category List</div>
+            <div class="box-body">
+                <table id="CategoryHistory" class="table table-bordered table-hover display ">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+ {
+
+    <script src="~/Scripts/FromScript/category.js"></script>
+}
+

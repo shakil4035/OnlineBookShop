@@ -1,0 +1,77 @@
+﻿@model Pims.Core.ViewModel.BookViewModel
+@{
+    ViewBag.Title = "BooksEntry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>BookInfo From</h4>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.BookTitel, "BookTitel*", htmlAttributes: new { @class = "Label-control" })
+                            @Html.EditorFor(model => Model.BookTitel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => Model.BookTitel, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.AuthorId, "Author", htmlAttributes: new { @class = "Label-control" })
+                            @Html.DropDownListFor(model => Model.AuthorId, null, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.AuthorId, "", new { @Class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.CategoryId, "Category", htmlAttributes: new { @class = "Label-control" })
+                            @Html.DropDownListFor(c => c.CategoryId, null, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.CategoryId, "", new { @Class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            @Html.HiddenFor(c => c.Id)
+                            <div class="form-group col-md-2 col-sm-2">
+                                <input type="button" id="btnSubmit" value="Submit" class="btn btn-primary btn-block" />
+                            </div>
+                            <div class="form-group col-md-2 col-sm-2">
+                                <input type="button" id="btnRefresh" value="Cancle" class="btn btn-primary btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-header">Books List</div>
+            <div class="box-body">
+                <table id="BooksHistory" class="table table-bordered table-hover display ">
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+ {
+    <script src="~/Scripts/FromScript/book.js"></script>
+}
+
+
