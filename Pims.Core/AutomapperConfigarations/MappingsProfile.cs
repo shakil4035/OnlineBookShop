@@ -35,6 +35,16 @@ namespace Pims.Core.AutomapperConfigarations
 
             CreateMap<Books, BookViewModel>();
             CreateMap<BookViewModel,Books>();
+
+            CreateMap<Purches, PurchesViewModel>()
+             .ForMember(vm => vm.Date,
+             opt => opt.MapFrom(m => DateTimeFormater.DateToString(m.Date)));
+            CreateMap<PurchesViewModel, Purches>()
+              .ForMember(dto => dto.Date,
+               opt => opt.MapFrom(m => DateTimeFormater.StringToDate(m.Date)));
+
+            CreateMap<PurchesDetails, PurchesDetailViewModel>();
+            CreateMap<PurchesDetailViewModel, PurchesDetails>();
         }
     }
 }

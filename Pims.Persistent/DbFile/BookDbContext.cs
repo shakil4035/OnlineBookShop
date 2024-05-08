@@ -14,5 +14,7 @@ namespace Pims.Persistent.DbFile
         public DbSet<Category> categories { set; get; }
         public DbSet<Seller> Sellers { set; get; }
         public DbSet<Books> Books { get; set; }
+        public DbSet<Purches> purchess { set; get; }
+        public DbSet<PurchesDetails> purchesDetailss { set; get; }
     }
 }

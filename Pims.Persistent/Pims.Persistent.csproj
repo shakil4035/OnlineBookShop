@@ -69,6 +69,10 @@
     <Compile Include="Migrations\202405080522451_createBooksTable.Designer.cs">
       <DependentUpon>202405080522451_createBooksTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202405081727418_CreateDitails.cs" />
+    <Compile Include="Migrations\202405081727418_CreateDitails.Designer.cs">
+      <DependentUpon>202405081727418_CreateDitails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405080522451_createBooksTable.resx">
       <DependentUpon>202405080522451_createBooksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405081727418_CreateDitails.resx">
+      <DependentUpon>202405081727418_CreateDitails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
