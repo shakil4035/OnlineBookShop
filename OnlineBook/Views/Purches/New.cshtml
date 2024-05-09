@@ -1,0 +1,205 @@
+﻿@model Pims.Core.ViewModel.PurchesViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Book Purchas</div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerName, "Customer Name", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control datepicker", @tabindex = "22" } })
+                                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Date, "Date", htmlAttributes: new { @class = "control-label" })
+                                <div class="input-group date">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control datepicker", @tabindex = "22" } })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AuthorId, "Author Name*", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(model => model.AuthorId, null, "", htmlAttributes: new { @class = "form-control", })
+                                @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        @Html.HiddenFor(c => c.Id)
+                    </div>
+
+                    <div class="box box-primary">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Book Name</label>
+                                        <input type="text" id="name" class="form-control" />
+                                        <input type="hidden" id="BookId" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Unit</label>
+                                        <input type="text" id="unit" class="form-control" />
+                                        @*<input type="hidden" id="itemId" value="" />*@
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Price</label>
+                                        <input type="number" id="price" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Qty</label>
+                                        <input type="number" id="quantity" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Line Total</label>
+                                        <input type="number" id="lineTotal" class="form-control" disabled="disabled" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+
+                                <div class="col-sm-1">
+                                    <button type="button" id="btnAdd" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                                </div>
+                                <div class="col-sm-11"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <table id="itemTable" class="table table-bordered table-hover display">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Book Name</th>
+                                        <th>Unit</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total Price</th>
+                                        @*<th id="actionButtonTitle">Option</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <div class="form-group form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-lg-2 col-md-2">
+                                            <label for="TotalBill" class="control-label">Total</label>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <input type="number" name="TotalBill" id="TotalBill" style="width: 100%; line-height: 27px;" disabled="disabled" />
+                                            @Html.ValidationMessageFor(model => model.TotalBill, "", new { @class = "text-danger", @id = "TotalBillVal" })
+                                        </div>
+                                        <div class="col-lg-2 col-md-2">
+                                            <label for="Payable" class="control-label">Payable</label>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <input type="number" name="Payable" id="Payable" style="width: 100%; line-height: 27px" disabled="disabled" />
+                                            @Html.ValidationMessageFor(model => model.Payable, "", new { @class = "text-danger", @id = "PayableVal" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-lg-2 col-md-2">
+                                            <label for="DiscountPercentage" class="control-label">Dis.</label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2">
+                                            <input type="text" name="Discount" id="Discount" style="width: 100%; line-height: 27px" />
+                                            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger", @id = "DiscountPercentageVal" })
+                                        </div>
+                                        @*<div class="col-lg-1 col-md-1" style="margin: 0">
+                                                <label for="Discount" class="control-label">%</label>
+                                            </div>*@
+                                        <div class="col-lg-2 col-md-2">
+                                            <input type="text" name="Discount" id="Discount" style="width: 100%; line-height: 27px" />
+                                            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger", @id = "DiscountVal" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-2 col-md-2">
+                                            <label for="TaxPercentage" class="control-label">Tax</label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2">
+                                            <input type="text" name="TaxPercentage" id="TaxPercentage" style="width: 100%; line-height: 27px;" />
+                                            @Html.ValidationMessageFor(model => model.TaxPercentage, "", new { @class = "text-danger", @id = "TaxPercentageVal" })
+                                        </div>
+                                        @*<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="width: 1%; margin: 0">
+                                                <label for="Tax" class="control-label">%</label>
+                                            </div>*@
+                                        <div class="col-lg-2 col-md-2">
+                                            <input type="text" name="Tax" id="Tax" style="width: 100%; line-height: 27px" />
+                                            @Html.ValidationMessageFor(model => model.Tax, "", new { @class = "text-danger", @id = "TaxVal" })
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        <div class="panel panel-info">
+                            <div class="panel-body">
+                                <div class="form-group ">
+                                    <div class="form-group">
+                                        <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding-left: 4px; width: 30%">
+                                            <a class="btn btn-primary btn-block" id="btnEdit"><i class="glyphicon glyphicon-edit"> EDIT</i></a>
+                                        </div>
+
+                                        <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding-left: 4px; width: 30%">
+                                            <a class="btn btn-primary btn-block" id="btnSubmit"><i class="glyphicon glyphicon-floppy-save"> SUBMIT</i></a>
+                                        </div>
+                                        @*<div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding-left: 0; width: 12%" id="btnUpdate-div">
+                                                <a class="btn btn-primary btn-block" id="btnUpdate"><i class="glyphicon glyphicon-edit"> UPDATE</i></a>
+                                            </div>*@
+
+                                        <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding-left: 0; width: 30%" hidden>
+                                            <a class="btn btn-primary btn-block" id="btnDelete"><i class="glyphicon glyphicon-trash"> DELETE</i></a>
+                                        </div>
+                                        <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding-left: 0; width: 30%">
+                                            <a class="btn btn-primary btn-block" id="btnClear"> <i class="glyphicon glyphicon-refresh"> CLEAR</i> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+ {
+
+    <script src="~/Scripts/FromScript/purches.js"></script>
+}
+

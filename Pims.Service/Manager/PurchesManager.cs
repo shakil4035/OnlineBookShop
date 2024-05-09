@@ -42,6 +42,26 @@ namespace Pims.Service.Manager
             _dbContext.SaveChanges();
             return entity.Id;
         }
+        public int Update(int id, PurchesViewModel vm)
+        {
+            var entity = _dbContext.purchess.SingleOrDefault(c => c.Id == id);
+            Mapper.Map(vm, entity);
+            entity.UpdateBy = "user";
+            entity.UpdateDate = DateTime.Now;
+            _dbContext.SaveChanges();
+            return entity.Id;
+        }
+
+        public int Remove(int id)
+        {
+            var entity = _dbContext.purchess.SingleOrDefault(c => c.Id == id);
+            _dbContext.purchess.Remove(entity);
+            entity.DeleteBy = entity.CreateBy;
+            entity.DeleteDate = DateTime.Now;
+            entity.IsDelete = true;
+            var isUpdate = _dbContext.SaveChanges();
+            return isUpdate;
+        }
         
     }
 }

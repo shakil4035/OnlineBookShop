@@ -13,6 +13,37 @@ namespace OnlineBook.Controllers.Api
     {
 
         public BookManager _manager = new BookManager();
+
+        [Route("api/Books/SearchAutoCompleteid")]
+        [HttpGet]
+        public IHttpActionResult SearchAutoCompleteid(int bid)
+        {
+            try
+            {
+                var info = _manager.GetAll().SingleOrDefault(c => c.Id == bid);
+
+                return Ok(info);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("api/Books/Search")]
+        [HttpGet]
+        public IHttpActionResult Search(string query = null)
+       {
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                var a = _manager.GetAll().Where(c => c.BookTitel.ToLower().Contains(query))
+                    .ToList();
+                return Ok(a);
+            }
+            return Ok(0);
+        }
+
+
         // GET: api/Books
         public IHttpActionResult Get()
         {

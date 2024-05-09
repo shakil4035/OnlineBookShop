@@ -448,6 +448,7 @@
     <Content Include="Scripts\FromScript\author.js" />
     <Content Include="Scripts\FromScript\book.js" />
     <Content Include="Scripts\FromScript\category.js" />
+    <Content Include="Scripts\FromScript\purches.js" />
     <Content Include="Scripts\FromScript\seller.js" />
     <Content Include="Scripts\FromScript\sellerList.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
@@ -463,6 +464,7 @@
     <Content Include="Views\Sellers\SellerEntry.cshtml" />
     <Content Include="Views\Sellers\List.cshtml" />
     <Content Include="Views\Books\BooksEntry.cshtml" />
+    <Content Include="Views\Purches\New.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -475,10 +477,12 @@
     <Compile Include="Controllers\Api\AuthorsController.cs" />
     <Compile Include="Controllers\Api\BooksController.cs" />
     <Compile Include="Controllers\Api\CategorysController.cs" />
+    <Compile Include="Controllers\Api\PurchesController.cs" />
     <Compile Include="Controllers\Api\SelersController.cs" />
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CategorysController.cs" />
+    <Compile Include="Controllers\PurchesController.cs" />
     <Compile Include="Controllers\SellersController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global.asax.cs">
