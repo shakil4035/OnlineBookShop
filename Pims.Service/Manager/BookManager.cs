@@ -26,7 +26,7 @@ namespace Pims.Service.Manager
 
         public IEnumerable<BookViewModel> GetAll()
         {
-            var enities = _dbContext.Books.Include("Author").Include("Category")
+            var enities = _dbContext.Books.Include("Author").Include("Category").Where(c => c.IsDelete == false)
                 .ToList().Select(Mapper.Map<Books, BookViewModel>);
             return enities;
         }

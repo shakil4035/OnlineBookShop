@@ -58,6 +58,7 @@
     <Compile Include="Manager\AuthorManager.cs" />
     <Compile Include="Manager\BookManager.cs" />
     <Compile Include="Manager\CategoryManager.cs" />
+    <Compile Include="Manager\PurchesManager.cs" />
     <Compile Include="Manager\SellerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
