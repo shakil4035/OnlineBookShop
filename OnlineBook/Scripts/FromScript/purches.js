@@ -54,7 +54,7 @@
 
 });
 
-$(document.body).on("change", "#price,#quantity", function () {
+$(document.body).on("change", "#price,#quantity,#Discount", function () {
     var price = $("#price").val();
     var quantity = $("#quantity").val();
     var lineTotal = price * quantity;
@@ -142,6 +142,30 @@ $(document.body).on("click", "#btnAdd", function () {
         }
     });
     $("#TotalBill").val(total);
+    var payable = total;
+    $("#Payable").val(payable);
+});
+
+$(document.body).on("change", "#DiscountPercentage", function () {
+    var total = parseFloat($("#TotalBill").val()) ;
+    var discountPercentage = parseFloat($("#DiscountPercentage").val());
+    var discount = (total / 100) * discountPercentage;
+    /*var newTotal = total - discount;*/
+    var payable = total - discount;
+    $("#Payable").val(payable);
+    $("#Discount").val(discount);
+    /*$("#TotalBill").val(newTotal);*/
+});
+
+$(document.body).on("change", "#TaxPercentage", function () {
+    var total = parseFloat($("#TotalBill").val()); 
+    var taxPercentage = parseFloat($("#TaxPercentage").val());
+    var tax = (total / 100) * taxPercentage;
+    var discount = $("#Discount").val();
+    /*var newTotal = total - discount;*/
+    var payable = (total - discount)+tax;
+    $("#Payable").val(payable);
+    $("#Tax").val(tax);
 });
 //function clearAddItemTable() {
 //    $("#unitId").val("");
