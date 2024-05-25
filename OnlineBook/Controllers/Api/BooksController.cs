@@ -33,7 +33,7 @@ namespace OnlineBook.Controllers.Api
         [Route("api/Books/Search")]
         [HttpGet]
         public IHttpActionResult Search(string query = null)
-       {
+      {
             if (!String.IsNullOrWhiteSpace(query))
             {
                 var a = _manager.GetAll().Where(c => c.BookTitel.ToLower().Contains(query))
@@ -44,7 +44,7 @@ namespace OnlineBook.Controllers.Api
         }
 
 
-        // GET: api/Books
+        // GET: api/Books       
         public IHttpActionResult Get()
         {
             try
