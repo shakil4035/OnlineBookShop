@@ -449,6 +449,7 @@
     <Content Include="Scripts\FromScript\book.js" />
     <Content Include="Scripts\FromScript\category.js" />
     <Content Include="Scripts\FromScript\purches.js" />
+    <Content Include="Scripts\FromScript\PurchesList.js" />
     <Content Include="Scripts\FromScript\seller.js" />
     <Content Include="Scripts\FromScript\sellerList.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
@@ -465,6 +466,7 @@
     <Content Include="Views\Sellers\List.cshtml" />
     <Content Include="Views\Books\BooksEntry.cshtml" />
     <Content Include="Views\Purches\New.cshtml" />
+    <Content Include="Views\Purches\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

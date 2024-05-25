@@ -15,5 +15,9 @@ namespace OnlineBook.Controllers
             ViewBag.AuthorId= new SelectList(new List<Author>(), "Id", "Name");
             return View();
         }
+        public ActionResult List()
+        {
+            return View();
+        }
     }
 }

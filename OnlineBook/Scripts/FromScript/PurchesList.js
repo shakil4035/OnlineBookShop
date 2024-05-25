@@ -3,34 +3,30 @@
 });
 
 function loadHistoryTable() {
-    $("#SellerTable").DataTable().destroy();
+    $("#purchesTable").DataTable().destroy();
 
-    $("#SellerTable").DataTable({
+    $("#purchesTable").DataTable({
         retrieve: true,
         paging: true,
         ajax: {
-            url: "/api/Selers",
+            url: "/api/Purches",
             dataSrc: ""
         },
         columns: [
             {
-                data: "idNo"
+                data: "customerName"
             },
             {
-                data: "name"
+                data: "author.name"
             },
             {
-                data: "gender"
+                data: "date"
             },
-            {
-                data: "phoneNo"
-            },
-            
-
+       
             {
                 data: "id",
                 render: function (data) {
-                    return "<a class='btn btn-info btn-sm js-edit' href='/Sellers/SellerEntry?id=" + data + "' ><i class='fa fa-pencil-square fa-2x ' aria-hidden='false'></i></a>";
+                    return "<a class='btn btn-info btn-sm js-edit' href='/Purches/New?id=" + data + "' ><i class='fa fa-pencil-square fa-2x ' aria-hidden='false'></i></a>";
                 }
             },
 
@@ -51,7 +47,7 @@ $(document.body).on("click",
         var button = $(this);
         var id = button.attr("data-id");
         getData(id);
-       
+
     });
 
 
@@ -62,7 +58,7 @@ $(document.body).on("click", ".js-delete", function () {
         function (result) {
             if (result) {
                 $.ajax({
-                    url: "/api/Selers/" + id,
+                    url: "/api/Purches/" + id,
                     method: "DELETE",
                     success: function () {
                         button.parents("tr").remove();
@@ -77,21 +73,5 @@ $(document.body).on("click", ".js-delete", function () {
         });
 });
 
-//function getData(id) {
-//    $.get("/api/Selers/" + id)
-//        .done(function (data) {
-//            $("#Id").val(data.id);
-//            $("#IdNo").val(data.idNo);
-//            $("#Name").val(data.name);
-//            $("#Gender").val(data.gender);
-//            $("#JoinjngDate").val(data.joinjngDate);
-//            $("#BirithDate").val(data.birithDate);
-//            $("#MeritialStatus").val(data.meritialStatus);
-//            $("#Email").val(data.email);
-//            $("#PhoneNo").val(data.phoneNo);
-//            $("#Address").val(data.address);
-//            $("#SearchName").val(data.name);
-//            $("#searchPhoneNo").val(data.phoneNo);
-//        });
-//}
+
 

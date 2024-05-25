@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            @*<div class="panel-heading">View All Purches</div>*@
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        View All Purches
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-1" style="padding-left: 25px;;">
+                        <a href="@Url.Action("New")" class="btn btn-primary btn-blockt">Create New</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <table id="purchesTable" class="table table-bordered table-hover table-striped" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Customar Name</th>
+                            <th>Author Name</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+ {
+    <script src="~/Scripts/FromScript/PurchesList.js"></script>
+    
+}

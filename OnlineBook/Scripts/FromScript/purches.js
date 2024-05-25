@@ -1,12 +1,12 @@
 ﻿$(document).ready(function () {
 
-    //var urlVar = getUrlVars();
+    var urlVar = getUrlVars();
 
-    //var id = urlVar["id"];
+    var id = urlVar["id"];
 
-    //if (id > 0) {
-    //    getData(id);
-    //}
+    if (id > 0) {
+        getData(id);
+    }
     //Get Designations
     $.get("/api/Authors", function (data) {
         var $el = $("#AuthorId");
@@ -149,9 +149,16 @@ $(document.body).on("click", "#btnAdd", function () {
 $(document.body).on("change", "#DiscountPercentage", function () {
     var total = parseFloat($("#TotalBill").val()) ;
     var discountPercentage = parseFloat($("#DiscountPercentage").val());
+    if (discountPercentage == "" || discountPercentage == null ||isNaN(discountPercentage)) {
+        $("#DiscountPercentage").val(0);
+        discountPercentage = 0;
+    }
+    /*if condition same kaj kore */
+    /*var discountPercentage = parseFloat($("#DiscountPercentage").val().length > 0 ? parseFloat($("#DiscountPercentage").val()) : 0);*/
     var discount = (total / 100) * discountPercentage;
     /*var newTotal = total - discount;*/
     var payable = total - discount;
+    
     $("#Payable").val(payable);
     $("#Discount").val(discount);
     /*$("#TotalBill").val(newTotal);*/
@@ -160,6 +167,10 @@ $(document.body).on("change", "#DiscountPercentage", function () {
 $(document.body).on("change", "#TaxPercentage", function () {
     var total = parseFloat($("#TotalBill").val()); 
     var taxPercentage = parseFloat($("#TaxPercentage").val());
+    if (taxPercentage == "" || taxPercentage == null || isNaN(taxPercentage)) {
+        $("#TaxPercentage").val(0);
+        taxPercentage = 0;
+    }
     var tax = (total / 100) * taxPercentage;
     var discount = $("#Discount").val();
     /*var newTotal = total - discount;*/
@@ -168,13 +179,23 @@ $(document.body).on("change", "#TaxPercentage", function () {
     $("#Tax").val(tax);
 });
 //function clearAddItemTable() {
-//    $("#unitId").val("");
+//    $("#Id").val("");
 //    $("#quantity").val("");
 //    $("#unitName").val("");
-//    $("#name").val("");
+//    $("#name").val("");0
 //    $("#remark").val("");
 //    $("#StockQnt").val("");
-//}
+////}
+$(document.body).on("click", "#btnClear", function () {
+    $('#itemTable').DataTable().clear().draw();
+    $('#TotalBill').val('');
+    $('#Payable').val('');
+    $('#DiscountPercentage').val('');
+    $('#Discount').val('');
+    $('#TaxPercentage').val('');
+    $('#Tax').val('');
+    refressForm();
+});
 
 
 //$('#itemTable tbody').on('click', '.js-item-delete', function () {
@@ -184,73 +205,91 @@ $(document.body).on("change", "#TaxPercentage", function () {
 //        .draw();
 //});
 
-//$(document.body).on("click", "#btnSubmit", function () {
+$(document.body).on("click", "#btnSubmit", function () {
 
-//    var dto = {
-//        PurchesDetail: []
-//    };
-//    var id = $("#Id").val();
-//    dto.date = $("#Date").val();
-//    dto.companySetupId = $("#CompanySetupId").val();
+    var dto = {
+        PurchesDetail: []
+    };
+    var id = $("#Id").val();
+    dto.customerName = $("#CustomerName").val();
+    dto.date = $("#Date").val();
+    dto.authorId = $("#AuthorId").val();
+    dto.totalBill = $('#TotalBill').val();
+    dto.payable = $('#Payable').val();
+    dto.discountPercentage = $('#DiscountPercentage').val();
+    dto.discount = $('#Discount').val();
+    dto.taxPercentage = $('#TaxPercentage').val();
+    dto.tax = $('#Tax').val();
 
-
-//    var dtlTable = $('#itemTable').DataTable();
-//    var dtls = dtlTable.rows().data();
-
-
-//    for (var r = 0; r < dtls.length; r++) {
-//        dto.PurchesDetail.push({
-//            ItemId: dtls.cell(r, 0).data(),
-//            ItemName: dtls.cell(r, 1).data(),
-//            Unit: dtls.cell(r, 2).data(),
-//            Price: dtls.cell(r, 3).data(),
-//            Quantity: dtls.cell(r, 4).data(),
-//            lineTotal: dtls.cell(r, 5).data()
-
-//        });
-//    }
-
-//    if (id == "" || id == 0 || id == null) {
-//        $.ajax({
-//            url: "/api/Purchass",
-//            data: dto,
-//            type: "POST",
-//            success: function (e) {
-//                if (e > 0) {
-//                    toastr.success("Data Save Success", "Success!!!");
-//                    refressForm();
+    var dtlTable = $('#itemTable').DataTable();
+    var dtls = dtlTable.rows().data();
 
 
-//                } else {
-//                    toastr.warning("Data Save Fail.", "Warning!!!");
-//                }
-//            },
-//            error: function (request, status, error) {
-//                var response = jQuery.parseJSON(request.responseText);
-//                toastr.error(response.errorMassage, "Error");
-//            }
-//        });
-//    } else {
-//        dto.id = id;
+    for (var r = 0; r < dtls.length; r++) {
+        dto.PurchesDetail.push({
+            ItemId: dtls.cell(r, 0).data(),
+            ItemName: dtls.cell(r, 1).data(),
+            Unit: dtls.cell(r, 2).data(),
+            Price: dtls.cell(r, 3).data(),
+            Quantity: dtls.cell(r, 4).data(),
+            lineTotal: dtls.cell(r, 5).data()
 
-//        $.ajax({
-//            url: "/api/Purchass/" + id,
-//            data: dto,
-//            type: "PUT",
-//            success: function (e) {
-//                if (e > 0) {
-//                    toastr.success("Data Update Success", "Success!!!");
-//                    refreshForm();
+        });
+    }
 
-//                } else {
-//                    toastr.warning("Data Update Fail.", "Warning!!!");
-//                }
-//            },
-//            error: function (request, status, error) {
-//                var response = jQuery.parseJSON(request.responseText);
-//                toastr.error(response.errorMassage, "Error");
-//            }
-//        });
-//    }
-//});
+    if (id == "" || id == 0 || id == null) {
+        $.ajax({
+            url: "/api/Purches",
+            data: dto,
+            type: "POST",
+            success: function (e) {
+                if (e > 0) {
+                    toastr.success("Data Save Success", "Success!!!");
+                    refressForm();
+
+
+                } else {
+                    toastr.warning("Data Save Fail.", "Warning!!!");
+                }
+            },
+            error: function (request, status, error) {
+                var response = jQuery.parseJSON(request.responseText);
+                toastr.error(response.errorMassage, "Error");
+            }
+        });
+    } else {
+        dto.id = id;
+
+        $.ajax({
+            url: "/api/Purches/" + id,
+            data: dto,
+            type: "PUT",
+            success: function (e) {
+                if (e > 0) {
+                    toastr.success("Data Update Success", "Success!!!");
+                    refreshForm();
+
+                } else {
+                    toastr.warning("Data Update Fail.", "Warning!!!");
+                }
+            },
+            error: function (request, status, error) {
+                var response = jQuery.parseJSON(request.responseText);
+                toastr.error(response.errorMassage, "Error");
+            }
+        });
+    }
+});
+
+function getData(id) {
+    $.get("/api/Purches/" + id)
+        .done(function (data) {
+            $("#Id").val(data.id);
+            $("#CustomerName").val(data.customerName);
+            $("#AuthorId").val(data.authorId);
+            $("#Date").val(data.date);
+        });
+}
+
+
 

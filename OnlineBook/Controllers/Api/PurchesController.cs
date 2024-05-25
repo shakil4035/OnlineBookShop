@@ -35,7 +35,7 @@ namespace OnlineBook.Controllers.Api
         {
             try
             {
-                var entity = _manager.GetAll();
+                var entity = _manager.Get(id);
                 if (entity == null)
                     return NotFound();
                 return Ok(entity);
