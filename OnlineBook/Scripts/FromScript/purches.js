@@ -227,8 +227,8 @@ $(document.body).on("click", "#btnSubmit", function () {
 
     for (var r = 0; r < dtls.length; r++) {
         dto.PurchesDetail.push({
-            ItemId: dtls.cell(r, 0).data(),
-            ItemName: dtls.cell(r, 1).data(),
+            BookId: dtls.cell(r, 0).data(),
+            BookName: dtls.cell(r, 1).data(),
             Unit: dtls.cell(r, 2).data(),
             Price: dtls.cell(r, 3).data(),
             Quantity: dtls.cell(r, 4).data(),
@@ -288,6 +288,51 @@ function getData(id) {
             $("#CustomerName").val(data.customerName);
             $("#AuthorId").val(data.authorId);
             $("#Date").val(data.date);
+
+
+            $("#itemTable").DataTable().destroy();
+            var t = $("#itemTable").DataTable({
+                retrieve: false,
+                paging: false,
+                searching: false,
+                info: false,
+                order: [[1, 'desc']],
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": true,
+                        "searchable": false
+                    }
+
+                ]
+            });
+
+            var sl = 1;
+            for (var i = 0; i < data.purchesDetail.length; i++) {
+                var bookId = data.purchesDetail[i].bookId;
+                var bookName = data.purchesDetail[i].bookName;
+                var unit = data.purchesDetail[i].unit;
+                var price = data.purchesDetail[i].price;
+                var quantity = data.purchesDetail[i].puantity;
+                var lineTotal = data.purchesDetail[i].lineTotal;
+
+                //input From Datatable
+                //var outQuantity = "<input type='text' id='outQuantityVal" + i + "' name='outQuantityVal" + i + "' value='" + outQuantityVal + "' >";
+                //var remark = "<input type='text'  id='remarksVal" + i + "' name='remarksVal" + i + "' value='" + remarksVal + "' >";
+                //var itemIdVal = "<input hidden type='text' id='itemId" + i + "' name='itemId" + i + "' value='" + itemId + "' >";
+
+                t.row.add([
+                    bookId,
+                    bookName,
+                    unit,
+                    price,
+                    quantity,
+                    lineTotal,
+                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + BookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
+                ]).draw(false);
+                sl++;
+
+            }
         });
 }
 

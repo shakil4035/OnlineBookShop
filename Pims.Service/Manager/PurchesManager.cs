@@ -21,6 +21,7 @@ namespace Pims.Service.Manager
 
         public PurchesViewModel Get(int id)
         {
+            var details = _dbContext.purchesDetailss.Where(s => s.PurchesId == id).ToList();
             var entity = _dbContext.purchess.SingleOrDefault(c => c.Id == id);
             return (Mapper.Map<Purches, PurchesViewModel>(entity));
         }
