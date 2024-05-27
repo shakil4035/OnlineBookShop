@@ -197,18 +197,10 @@ $(document.body).on("click", "#btnClear", function () {
     refressForm();
 });
 
-
-//$('#itemTable tbody').on('click', '.js-item-delete', function () {
-//    $('#itemTable').DataTable()
-//        .row($(this).parents('tr'))
-//        .remove()
-//        .draw();
-//});
-
 $(document.body).on("click", "#btnSubmit", function () {
 
     var dto = {
-        PurchesDetail: []
+        purchesDetail: []
     };
     var id = $("#Id").val();
     dto.customerName = $("#CustomerName").val();
@@ -226,12 +218,12 @@ $(document.body).on("click", "#btnSubmit", function () {
 
 
     for (var r = 0; r < dtls.length; r++) {
-        dto.PurchesDetail.push({
-            BookId: dtls.cell(r, 0).data(),
-            BookName: dtls.cell(r, 1).data(),
-            Unit: dtls.cell(r, 2).data(),
-            Price: dtls.cell(r, 3).data(),
-            Quantity: dtls.cell(r, 4).data(),
+        dto.purchesDetail.push({
+            bookId: dtls.cell(r, 0).data(),
+            bookName: dtls.cell(r, 1).data(),
+            unit: dtls.cell(r, 2).data(),
+            price: dtls.cell(r, 3).data(),
+            quantity: dtls.cell(r, 4).data(),
             lineTotal: dtls.cell(r, 5).data()
 
         });
@@ -288,6 +280,11 @@ function getData(id) {
             $("#CustomerName").val(data.customerName);
             $("#AuthorId").val(data.authorId);
             $("#Date").val(data.date);
+            $("#name").val(data.name);
+            $("#price").val(data.price);
+            $("#quantity").val(data.quantity);
+            $("#lineTotal").val(data.lineTotal);
+            $("#unit").val(data.unit);
 
 
             $("#itemTable").DataTable().destroy();
@@ -313,7 +310,7 @@ function getData(id) {
                 var bookName = data.purchesDetail[i].bookName;
                 var unit = data.purchesDetail[i].unit;
                 var price = data.purchesDetail[i].price;
-                var quantity = data.purchesDetail[i].puantity;
+                var quantity = data.purchesDetail[i].quantity;
                 var lineTotal = data.purchesDetail[i].lineTotal;
 
                 //input From Datatable
@@ -328,8 +325,8 @@ function getData(id) {
                     price,
                     quantity,
                     lineTotal,
-                    "<a class= 'btn btn-info btn-sm js-edit' data- id=" + bookId + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
-                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + bookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
+                    "<a class= 'btn btn-info btn-sm js-edit' data- id=" + data + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
+                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + data + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
                 ]).draw(false);
                 sl++;
 
@@ -337,5 +334,19 @@ function getData(id) {
         });
 }
 
+$(document.body).on("click",
+    ".js-edit",
+    function () {
+        refressForm();
+        var button = $(this);
+        var id = button.attr("data-id");
+        getData(id);
+    });
 
-
+//details data delete this dete click
+$('#itemTable tbody').on('click', '.js-item-delete', function () {
+    $('#itemTable').DataTable()
+        .row($(this).parents('tr'))
+        .remove()
+        .draw();
+});

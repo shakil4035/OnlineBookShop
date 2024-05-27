@@ -49,6 +49,32 @@ namespace Pims.Service.Manager
             Mapper.Map(vm, entity);
             entity.UpdateBy = "user";
             entity.UpdateDate = DateTime.Now;
+            
+            
+
+            //remove details item
+            var details = _dbContext.purchesDetailss.Where(c => c.PurchesId == entity.Id).ToList();
+
+            foreach (var ps in details)
+            {
+                _dbContext.purchesDetailss.Remove(ps);
+            }
+
+            foreach (var ps in vm.PurchesDetail)
+            {
+                var model = new PurchesDetails()
+                {
+                    Id = ps.Id,
+                    PurchesId = entity.Id,
+                    BookId = ps.BookId,
+                    Unit = ps.Unit,
+                    BookName = ps.BookName,
+                    Price = ps.Price,
+                    Quantity = ps.Quantity,
+                    LineTotal = ps.LineTotal
+                };
+                _dbContext.purchesDetailss.Add(model);
+            }
             _dbContext.SaveChanges();
             return entity.Id;
         }
