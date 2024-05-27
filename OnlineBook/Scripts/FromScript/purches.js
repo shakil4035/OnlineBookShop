@@ -328,7 +328,8 @@ function getData(id) {
                     price,
                     quantity,
                     lineTotal,
-                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + BookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
+                    "<a class= 'btn btn-info btn-sm js-edit' data- id=" + bookId + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
+                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + bookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
                 ]).draw(false);
                 sl++;
 
