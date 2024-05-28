@@ -43,7 +43,6 @@ function loadHistoryTable() {
 $(document.body).on("click",
     ".js-edit",
     function () {
-        refressForm();
         var button = $(this);
         var id = button.attr("data-id");
         getData(id);

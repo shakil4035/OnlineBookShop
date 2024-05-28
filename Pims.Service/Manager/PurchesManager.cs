@@ -49,8 +49,6 @@ namespace Pims.Service.Manager
             Mapper.Map(vm, entity);
             entity.UpdateBy = "user";
             entity.UpdateDate = DateTime.Now;
-            
-            
 
             //remove details item
             var details = _dbContext.purchesDetailss.Where(c => c.PurchesId == entity.Id).ToList();

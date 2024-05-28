@@ -79,14 +79,14 @@ function refressForm() {
 /*Add Item Table*/
 var sl = 1;
 $(document.body).on("click", "#btnAdd", function () {
-    var BookId = $("#BookId").val();
-    var BookName = $("#name").val();
+    var bookId = $("#BookId").val();
+    var bookName = $("#name").val();
     var price = $("#price").val();
     var quantity = $("#quantity").val();
     var lineTotal = $("#lineTotal").val();
     var unit = $("#unit").val();
 
-    if (BookName == "") {
+    if (bookName == "") {
         toastr.warning("please give the required fields");
         return;
     }
@@ -121,12 +121,14 @@ $(document.body).on("click", "#btnAdd", function () {
     });
 
     t.row.add([
-        BookId,
-        BookName,
+        bookId,
+        bookName,
         unit,
         price,
         quantity,
         lineTotal,
+        "<a class= 'btn btn-info btn-sm js-edit' data- id=" + bookId + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
+        "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + bookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
         /*"<a class='btn btn-danger btn-sm js-item-delete' data-id=" + BookId + " ><i class='fa fa-trash fa-x ' aria-hidden='false'></i></a>"*/
     ]).draw(false);
     sl++;
