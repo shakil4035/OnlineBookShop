@@ -73,6 +73,7 @@ namespace Pims.Service.Manager
                 };
                 _dbContext.purchesDetailss.Add(model);
             }
+
             _dbContext.SaveChanges();
             return entity.Id;
         }

@@ -282,11 +282,12 @@ function getData(id) {
             $("#CustomerName").val(data.customerName);
             $("#AuthorId").val(data.authorId);
             $("#Date").val(data.date);
-            $("#name").val(data.name);
-            $("#price").val(data.price);
-            $("#quantity").val(data.quantity);
-            $("#lineTotal").val(data.lineTotal);
-            $("#unit").val(data.unit);
+            $("#TotalBill").val(data.totalBill);
+            $("#Payable").val(data.payable);
+            $("#DiscountPercentage").val(data.discountPercentage);
+            $("#Discount").val(data.discount);
+            $("#TaxPercentage").val(data.taxPercentage);
+            $("#Tax").val(data.tax);
 
 
             $("#itemTable").DataTable().destroy();
@@ -327,23 +328,24 @@ function getData(id) {
                     price,
                     quantity,
                     lineTotal,
-                    "<a class= 'btn btn-info btn-sm js-edit' data- id=" + data + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
-                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + data + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
+                    "<a class= 'btn btn-info btn-sm js-edit' data- id=" + bookId + " > <i class='fa fa-pencil-square fa-1x ' aria-hidden='false'></i></a >",
+                    "<a class='btn btn-danger btn-sm js-item-delete' data-id=" + bookId + " ><i class='fa fa-trash fa-1x ' aria-hidden='false'></i></a>"
                 ]).draw(false);
                 sl++;
 
             }
+            
         });
 }
 
-$(document.body).on("click",
-    ".js-edit",
-    function () {
-        refressForm();
-        var button = $(this);
-        var id = button.attr("data-id");
-        getData(id);
-    });
+//$(document.body).on("click",
+//    ".js-edit",
+//    function () {
+//        refressForm();
+//        var button = $(this);
+//        var id = button.attr("data-id");
+//        getData(id);
+//    });
 
 //details data delete this dete click
 $('#itemTable tbody').on('click', '.js-item-delete', function () {
