@@ -338,19 +338,52 @@ function getData(id) {
         });
 }
 
-//$(document.body).on("click",
-//    ".js-edit",
-//    function () {
-//        refressForm();
-//        var button = $(this);
-//        var id = button.attr("data-id");
-//        getData(id);
-//    });
+//Table data load from
+$(document.body).on("click", ".js-edit", function () {
+    var row = $(this).closest("tr");
+    var bookname =row.find('td:eq(1)').text();
+    var unit = row.find('td:eq(2)').text();
+    var price = parseFloat(row.find('td:eq(3)').text());
+    var quantity = parseFloat(row.find('td:eq(4)').text());
+    var lineTotal = parseFloat(row.find('td:eq(5)').text());
+    if (!isNaN(lineTotal)) {
+        name = bookname;
+        unit = unit;
+        price = price;
+        quantity = quantity;
+        total = lineTotal;
+    }
+    $("#name").val(name);
+    $("#unit").val(unit);
+    $("#price").val(price);
+    $("#quantity").val(quantity);
+    $("#lineTotal").val();
+    $("#lineTotal").val(total);
 
+    $('#btnAdd').click(function () {
+        row.find('td:eq(0)').text($('#BookId').val());
+        row.find('td:eq(1)').text($('#name').val());
+        row.find('td:eq(2)').text($('#unit').val());
+        row.find('td:eq(3)').text($('#price').val());
+        row.find('td:eq(4)').text($('#quantity').val());
+        row.find('td:eq(5)').text($('#price').val() * $('#quantity').val());
+    });
+   
+});
 //details data delete this dete click
 $('#itemTable tbody').on('click', '.js-item-delete', function () {
     $('#itemTable').DataTable()
         .row($(this).parents('tr'))
         .remove()
         .draw();
+    var total = 0;
+    $("#itemTable tbody tr").each(function () {
+        var lineTotal = parseFloat($(this).find('td:eq(4)').text());
+        if (!isNaN(lineTotal)) {
+            total = lineTotal - total;
+        }
+    });
+    $("#TotalBill").val(total);
+    var payable = total;
+    $("#Payable").val(payable);
 });
