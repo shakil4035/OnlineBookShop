@@ -45,6 +45,20 @@ namespace Pims.Core.AutomapperConfigarations
 
             CreateMap<PurchesDetails, PurchesDetailViewModel>();
             CreateMap<PurchesDetailViewModel, PurchesDetails>();
+
+            CreateMap<Receive, ReceiveViewModel>()
+             .ForMember(vm => vm.Date,
+             opt => opt.MapFrom(m => DateTimeFormater.DateToString(m.Date)))
+            .ForMember(vm => vm.ReceiveDate,
+             opt => opt.MapFrom(m => DateTimeFormater.DateToString(m.ReceiveDate)));
+            CreateMap<ReceiveViewModel, Receive>()
+              .ForMember(dto => dto.Date,
+               opt => opt.MapFrom(m => DateTimeFormater.StringToDate(m.Date)))
+             .ForMember(vm => vm.ReceiveDate,
+             opt => opt.MapFrom(m => DateTimeFormater.StringToDate(m.ReceiveDate)));
+
+            CreateMap<Receive_Details, ReceiveDetailsViewModel>();
+            CreateMap<ReceiveDetailsViewModel, Receive_Details>();
         }
     }
 }
